@@ -3,8 +3,8 @@ const cors = require('cors');
 const pino = require('pino');
 const dotenv = require('dotenv');
 const { newSunoApi } = require("./SunoApi.js");
-const { DEFAULT_MODEL } = require('/utils');
-const router = require('./routes/chatRoutes');
+const { DEFAULT_MODEL } = require("./utils.js");
+const router = require('./routes/chatRoutes.js');
 
 
 dotenv.config();
