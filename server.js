@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const pino = require('pino');
 const dotenv = require('dotenv');
-const { newSunoApi } = require('/SunoApi');
+const { newSunoApi } = require("./SunoApi.js");
 const { DEFAULT_MODEL } = require('/utils');
 const router = require('./routes/chatRoutes');
 
