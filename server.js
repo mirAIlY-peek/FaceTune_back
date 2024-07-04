@@ -42,7 +42,7 @@ app.options('/api/generate', (req, res) => {
     res.set(corsHeaders).sendStatus(200);
 });
 
-app.use('/api', router);
+app.use('/', router);
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
