@@ -16,7 +16,9 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
+    "node-schedule": "^2.1.1",
     "nodemon": "^3.1.4",
+    "openai": "^4.52.7",
     "pino": "^9.2.0",
     "tough-cookie": "^4.1.4",
     "user-agents": "^1.1.251"

@@ -1,43 +1,34 @@
-    const express = require('express');
-    const dotenv = require('dotenv');
+const express = require('express');
+const dotenv = require('dotenv');
+const { OpenAI } = require('openai');
 
-    dotenv.config();
+dotenv.config();
 
-    const router = express.Router();
-    const { CohereClient } = require('cohere-ai');
+const router = express.Router();
 
+const openai = new OpenAI({
+    apiKey: process.env.OPENAI_API_KEYS // This is also the default, can be omitted
+});
 
-    const cohere = new CohereClient({
-        token: process.env.ACCESS_TOKEN_COPHERE,
-    });
+router.post('/chat', async (req, res) => {
+    const { prompt } = req.body;
 
+    async function sendQueryApi(prompt) {
+        const completion = await openai.chat.completions.create({
+            model: "gpt-3.5-turbo", // You can change this to other models like "gpt-4" if you have access
+            messages: [{ role: "user", content: prompt }],
+        });
 
+        return completion.choices[0].message.content;
+    }
 
-    router.post('/chat',async(req,res)=>{
-        const {prompt} = req.body;
+    try {
+        const result = await sendQueryApi(prompt);
+        res.json({ response: result });
+    } catch (error) {
+        console.error('OpenAI API error:', error);
+        res.status(500).json({ error: error.message });
+    }
+});
 
-
-        async function sendQueryApi(prompt) {
-            const response = await cohere.chat({
-
-                message: prompt,
-                // perform web search before answering the question. You can also use your own custom connector.
-                connectors: [{ id: 'web-search' }],
-
-            });
-
-            return response.text;
-        }
-
-        try {
-            const result = await sendQueryApi(prompt);
-            res.json({ response: result });
-        } catch (error) {
-            res.status(500).json({ error: error.message });
-        }
-    })
-
-
-
-    module.exports = router
-
+module.exports = router;
