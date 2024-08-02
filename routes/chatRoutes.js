@@ -15,7 +15,7 @@ router.post('/chat', async (req, res) => {
 
     async function sendQueryApi(prompt) {
         const completion = await openai.chat.completions.create({
-            model: "gpt-3.5-turbo", // You can change this to other models like "gpt-4" if you have access
+            model: "gpt-4", // You can change this to other models like "gpt-4" if you have access
             messages: [{ role: "user", content: prompt }],
         });
 
